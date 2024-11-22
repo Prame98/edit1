@@ -1,0 +1,24 @@
+< 프로젝트 개요 >
+
+- 회원가입  시 '손님계정' 과 '사장님계정' 을 분류해서 가입 받음
+- 사장님 계정으로 로그인 했을 시에만 '게시물 작성' 가능
+
+- 손님 계정 회원가입 시 입력란 : 닉네임, 아이디, 비밀번호, 비밀번호 확인란(다시한번 입력), 주소
+- 사장님 계정 회원가입 시 입력란 : 상점명(=닉네임), 아이디, 비밀번호, 비밀번호 확인란, 영업시간(10:00~22:00), 주소
+
+- 따라서 지금 내 백엔드 코드에서의 우선 수정사항은
+models/user.js 
+-> 'email' -> 'userId' 로 수정
+   'address' 요소 추가
+   'userType' 요소 추가, 'guest' 아니면 'owner' 지정
+     ㄴ 'owner'일시 영업시간 입력란 추가
+
+
+
+< 에러사항.. >
+
+1.  models/user.js  에서 'email' -> 'userId' 로 수정하면
+WHERE parameter "userId" has invalid "undefined" value 라는 에러 발생...
+  
+   ㄴ models/user.js 에서 수정후,  controllers/auth.js 수정,  passport/localStrategy.js 수정
+   ㄴ 이것만 하면 DB(mysql)에서 email컬럼이 아닌 userId로 저장->실행될줄 알았는데... 뭐가 더 수정돼야 하는지..?
